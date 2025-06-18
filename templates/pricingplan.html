@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f2ff; /* Light blue background */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Hide horizontal overflow */
+        }
+
+        /* Flex container for columns */
+        .columns {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Pricing card styles */
+        .price {
+            border: 1px solid #ccc; /* Light border */
+            padding: 20px; /* Adjusted padding */
+            transition: 0.3s;
+            width: 250px; /* Set a fixed width for each card */
+            background-color: #fff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        .price:hover {
+            box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
+        }
+
+        .price .header {
+            background-color: #111;
+            color: white;
+            font-size: 25px;
+            padding: 10px 0; /* Adjusted padding */
+            margin: 0; /* Remove default margin */
+            border-top-left-radius: 8px; /* Rounded corners for header */
+            border-top-right-radius: 8px;
+        }
+
+        .price li {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0; /* Adjusted padding */
+            text-align: center;
+            color: #333; /* Font color adjustment */
+            font-size: 16px; /* Font size adjustment */
+            list-style-type: none; /* Remove bullets */
+        }
+
+        .price .grey {
+            background-color: #eee;
+            font-size: 20px;
+        }
+
+        .button {
+            background-color: #04AA6D;
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            display: block; /* Make the button full width */
+            margin: 10px auto; /* Center the button */
+            cursor: pointer;
+            border-radius: 4px; /* Rounded corners */
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+
+        .button:hover {
+            background-color: #05754E; /* Darker green hover color */
+        }
+
+        @media only screen and (max-width: 600px) {
+            .columns {
+                flex-direction: column; /* Stack cards vertically on small screens */
+                align-items: stretch;
+            }
+            .price {
+                width: 100%; /* Take full width on small screens */
+            }
+        }
+
+        /* Instance creation form styles */
+        .instance-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0, 0.5); /* Semi-transparent black background */
+            z-index: 1;
+            overflow: auto; /* Enable scrolling */
+            animation: fadeIn 0.5s ease-in-out; /* Fade in animation */
+        }
+
+        .instance-form.active {
+            display: block;
+        }
+
+        .form-container {
+            background-color: #fff;
+            margin: 10% auto; /* Center the form vertically */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: slideIn 0.5s ease-in-out; /* Slide in animation */
+        }
+
+        .form-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .form-container label {
+            display: block;
+            text-align: left;
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="password"] {
+            width: calc(100% - 20px); /* Adjusted width */
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-container input[type="submit"] {
+            width: 100%; /* Full width button */
+            background-color: #007bff; /* Blue button color */
+            color: white;
+            padding: 14px 0; /* Adjusted padding */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            outline: none; /* Remove outline on focus */
+            text-transform: uppercase; /* Uppercase text */
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3; /* Darker blue hover color */
+        }
+
+        .back-button {
+            background-color: #ccc;
+            color: #333;
+            padding: 10px 25px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            margin-top: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background-color: #bbb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Pricing Plans</h2>
+    <div class="columns">
+        <div class="price" id="startups-monthly">
+            <ul>
+                <li class="header">Startups</li>
+                <li class="grey">$0 / month</li>
+                <li>All Apps</li>
+                <li>1 User</li>
+                <li>1GB RAM</li>
+                <li>1 Core Processor</li>
+                <li>5GB Storage</li>
+                <li>Multi Projects</li>
+
+                <li class="grey"><button onclick="toggleForm('form-startup')" class="button">Get Quote</button></li>
+            </ul>
+        </div>
+        <div class="price" id="small-monthly">
+            <ul>
+                <li class="header">Small</li>
+                <li class="grey">$20 / month</li>
+                <li>All Apps</li>
+                <li>5 Users</li>
+                <li>2GB RAM</li>
+                <li> 2 Core Processor</li>
+                <li>10GB Storage</li>
+                <li>Multi Projects</li>
+                <li class="grey"><button onclick="toggleForm('form-small')" class="button">Get Quote</button></li>
+            </ul>
+        </div>
+        <div class="price" id="medium-monthly">
+            <ul>
+                <li class="header">Medium</li>
+                <li class="grey">$40 / month</li>
+               <li>All Apps</li>
+                <li>15 Users</li>
+                <li>1GB RAM</li>
+                <li>4 Core Processor</li>
+                <li>20GB Storage</li>
+                <li>Multi Projects</li>
+                <li>Multi Currencies</li>
+                <li class="grey"><button onclick="toggleForm('form-medium')" class="button">Get Quote</button></li>
+            </ul>
+        </div>
+        <div class="price" id="large-monthly">
+            <ul>
+                <li class="header">Large</li>
+                <li class="grey">$80 / month</li>
+                <li>All Apps</li>
+                <li>100+ Users</li>
+                <li>8GB RAM</li>
+                <li>6 Core Processor</li>
+                <li>50GB Storage</li>
+                <li>Multi Projects</li>
+                <li>Multi Currencies</li>
+                <li>Multi Branches</li>
+                <li class="grey"><button onclick="toggleForm('form-large')" class="button">Get Quote</button></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Instance creation forms -->
+    <div id="form-startup" class="instance-form">
+        <div class="form-container">
+            <h1>Create Instance</h1>
+            <form action="/create_instance" method="post">
+                <input type="hidden" name="pricing_plan" value="startup">
+                <label for="instance_name">Instance Name:</label>
+                <input type="text" id="instance_name" name="instance_name" required>
+
+                <label for="admin_password">Master Password:</label>
+                <input type="password" id="admin_password" name="admin_password" required>
+
+                <input type="submit" value="Create Instance">
+                <a href="#" class="back-button" onclick="toggleForm('form-startup')">Back</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="form-small" class="instance-form">
+        <div class="form-container">
+            <h1>Create Instance</h1>
+            <form action="/create_instance" method="post">
+                <input type="hidden" name="pricing_plan" value="small">
+                <label for="instance_name">Instance Name:</label>
+                <input type="text" id="instance_name" name="instance_name" required>
+
+                <label for="admin_password">Master Password:</label>
+                <input type="password" id="admin_password" name="admin_password" required>
+
+                <input type="submit" value="Create Instance">
+                <a href="#" class="back-button" onclick="toggleForm('form-small')">Back</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="form-medium" class="instance-form">
+        <div class="form-container">
+            <h1>Create Instance</h1>
+            <form action="/create_instance" method="post">
+                <input type="hidden" name="pricing_plan" value="medium">
+                <label for="instance_name">Instance Name:</label>
+                <input type="text" id="instance_name" name="instance_name" required>
+
+                <label for="admin_password">Master Password:</label>
+                <input type="password" id="admin_password" name="admin_password" required>
+
+                <input type="submit" value="Create Instance">
+                <a href="#" class="back-button" onclick="toggleForm('form-medium')">Back</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="form-large" class="instance-form">
+        <div class="form-container">
+            <h1>Create Instance</h1>
+            <form action="/create_instance" method="post">
+                <input type="hidden" name="pricing_plan" value="large">
+                <label for="instance_name">Instance Name:</label>
+                <input type="text" id="instance_name" name="instance_name" required>
+
+                <label for="admin_password">Master Password:</label>
+                <input type="password" id="admin_password" name="admin_password" required>
+
+                <input type="submit" value="Create Instance">
+                <a href="#" class="back-button" onclick="toggleForm('form-large')">Back</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript to toggle instance creation forms -->
+    <script>
+        function toggleForm(formId) {
+            var forms = document.getElementsByClassName("instance-form");
+            for (var i = 0; i < forms.length; i++) {
+                if (forms[i].id === formId) {
+                    forms[i].classList.toggle("active");
+                } else {
+                    forms[i].classList.remove("active");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

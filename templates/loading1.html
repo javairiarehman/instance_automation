@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 50px;
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            color: #3498db;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h2>Loading...</h2>
+    <p>Your instance <strong>{{ instance_name }}</strong> is setting up. Please wait...</p>
+
+    <script>
+        // Wait for 10 seconds and then redirect
+        setTimeout(function() {
+            window.location.href = 'http://' + '{{ instance_name }}.business4x.com';
+        }, 37000); // 10000 milliseconds = 10 seconds
+    </script>
+</body>
+</html>

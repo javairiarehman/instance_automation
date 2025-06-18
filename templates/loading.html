@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center; /* Center align all text */
+    }
+
+    .loading-message {
+      animation: fadeOut 8s forwards;
+      font-size: 26px;
+    }
+
+    .secondary-message {
+      opacity: 0;
+      animation: fadeIn 10s 8s forwards, fadeOut 8s 13s forwards;
+      font-size: 24px;
+    }
+
+    .setup-message {
+      opacity: 0;
+      animation: fadeIn 20s 18s forwards;
+      font-size: 20px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="loading-container">
+    <div class="loading-message">
+      <h1>Welcome to Business4x ERP</h1>
+    </div>
+    <div class="secondary-message">
+      <h2>A one-stop, centralized software solution for your business.</h2>
+      <p>Simplify Operations and Maximize Business Efficiency</p>
+    </div>
+    <div class="setup-message">
+      <p>Your instance <strong>{{ instance_name }}</strong> is setting up. Please wait...</p>
+    </div>
+  </div>
+
+  <script>
+    // Wait for 10 seconds and then redirect
+    setTimeout(function() {
+      window.location.href = 'http://' + '{{ instance_name }}.business4x.com';
+    }, 38000); // 38000 milliseconds = 38 seconds
+  </script>
+</body>
+</html>
